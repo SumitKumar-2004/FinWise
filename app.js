@@ -1,22 +1,15 @@
 const express = require("express");
 const cors = require("cors");
-const expenseRoutes = require("./routes/expenseRoutes.js");
-const authRoutes = require("./routes/authRoutes.js");
+const expenseRoutes = require("./routes/expenseRoutes");
+const authRoutes = require("./routes/authRoutes");
 
 const app = express();
 
+// ✅ MUST COME BEFORE ROUTES
+app.use(cors());
 app.use(express.json());
 
-// ✅ SIMPLE GLOBAL CORS
-app.use(
-  cors({
-    origin: "*",
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    credentials: true
-  })
-);
-
-// API Routes
+// Routes
 app.use("/api/v2/expense", expenseRoutes);
 app.use("/api/v2/auth", authRoutes);
 
